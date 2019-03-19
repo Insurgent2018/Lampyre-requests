@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-import paramiko
+
 import datetime
 import ipaddress
 import concurrent.futures
@@ -113,6 +113,7 @@ def return_info_nfs(client, ip, timeouts=10):
 
 
 def thread_async_nfs_one_client(hosts_ports, threads=16, req_timeout=10):
+    import paramiko
     client = paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.WarningPolicy)
@@ -220,6 +221,8 @@ class SearchDataNFS(Task):
 
 if __name__ == '__main__':
     import sys
+    from warnings import filterwarnings
+    filterwarnings('ignore')
 
     class EnterParameters:
         ips = ['192.168.0.6']  # ip, targets
